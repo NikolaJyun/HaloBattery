@@ -1,5 +1,7 @@
 # Halo Battery
 
+[繁體中文說明](README.zh-TW.md)
+
 Battery levels for wireless mice, keyboards, headsets and controllers in the Windows system tray - one icon per device, no vendor software.
 
 ![All icon states](docs/icons.png)

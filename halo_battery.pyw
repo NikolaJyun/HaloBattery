@@ -87,6 +87,7 @@ from pystray import Menu, MenuItem as Item  # noqa: E402
 
 import flyout  # noqa: E402
 import history  # noqa: E402
+import i18n  # noqa: E402
 import icons  # noqa: E402
 import updates  # noqa: E402
 import winevents  # noqa: E402
@@ -132,30 +133,30 @@ DEFAULTS = {
 # Preferences > Device types: provider name -> what the user sees. Windows Bluetooth
 # devices keep their own switch ("bluetooth" above), as before.
 PROVIDER_LABELS = {
-    "8bitdo": "8BitDo controllers",
+    "8bitdo": "8BitDo 控制器",
     "am_infinity": "AM Infinity 8K (Angry Miao)",
     "astro": "Astro A50",
-    "asus": "ASUS ROG / TUF mice",
+    "asus": "ASUS ROG / TUF 滑鼠",
     "audeze": "Audeze Maxwell",
     "barracuda": "Razer Barracuda Pro",
-    "corsair": "Corsair headsets",
-    "gwolves": "G-Wolves mice",
+    "corsair": "Corsair 耳機",
+    "gwolves": "G-Wolves 滑鼠",
     "hyperx": "HyperX Cloud II Wireless",
     "hyperx_alpha2": "HyperX Cloud Alpha 2",
     "hyperx_cloud3": "HyperX Cloud III Wireless",
     "jbl": "JBL Quantum",
     "keychron": "Keychron",
-    "lamzu": "LAMZU mice",
-    "lofree": "Lofree keyboards",
+    "lamzu": "LAMZU 滑鼠",
+    "lofree": "Lofree 鍵盤",
     "logitech": "Logitech",
-    "mchose": "MCHOSE mice",
-    "nintendo": "Nintendo Switch controllers",
-    "playstation": "PlayStation controllers",
-    "pulsar": "Pulsar / ATK VXE mice",
-    "razer": "Razer mice and headsets",
+    "mchose": "MCHOSE 滑鼠",
+    "nintendo": "Nintendo Switch 控制器",
+    "playstation": "PlayStation 控制器",
+    "pulsar": "Pulsar / ATK VXE 滑鼠",
+    "razer": "Razer 滑鼠與耳機",
     "steelseries": "SteelSeries",
     "wlmouse": "WLmouse",
-    "xinput": "Xbox-compatible controllers",
+    "xinput": "Xbox 相容控制器",
 }
 
 
@@ -298,17 +299,17 @@ def running_from_temp() -> bool:
 
 # The texts of the app's notifications.
 def low_battery_text(name: str, level: Optional[int], approx: bool) -> str:
-    left = "battery is low" if approx else f"{level}% left"
-    return f"{name}: {left}. Time to charge."
+    left = "電量偏低" if approx else f"剩餘 {level}%"
+    return f"{name}：{left}，該充電了。"
 
 
 def fully_charged_text(name: str) -> str:
-    return f"{name} is fully charged."
+    return f"{name} 已充飽電。"
 
 
 def update_text(latest: str) -> str:
-    return (f"Version {latest} is available. Right-click a battery icon "
-            f"and choose \"Download v{latest}…\".")
+    return (f"已有 {latest} 版可用。請在電池圖示上按一下滑鼠右鍵，"
+            f"再選擇「下載 v{latest}…」。")
 
 
 # Windows titles a notification with the app that sent it. Without an id of its own the
@@ -360,9 +361,8 @@ def set_app_id() -> None:
         log.warning("app id: %s", e)
 
 
-TEMP_AUTOSTART_TEXT = ("Halo Battery is running from a temporary folder (straight from the ZIP). "
-                       "Extract the ZIP to a folder of its own, run HaloBattery.exe from there, "
-                       "then turn on Start with Windows.")
+TEMP_AUTOSTART_TEXT = ("Halo Battery 正從 ZIP 的暫存資料夾執行。請先將 ZIP 解壓縮至獨立資料夾，"
+                       "從該處執行 HaloBattery.exe，再開啟「隨 Windows 啟動」。")
 
 
 def autostart_enabled() -> bool:
@@ -607,8 +607,8 @@ def badge_for(st: DeviceStatus) -> str:
 
 
 # the pictograms a user can pick for one device ("Icon" in its menu); "" = automatic
-PICTOGRAM_CHOICES = (("", "Automatic"), ("mouse", "Mouse"), ("keyboard", "Keyboard"),
-                     ("headset", "Headset"), ("gamepad", "Controller"), ("bluetooth", "Bluetooth"))
+PICTOGRAM_CHOICES = (("", "自動"), ("mouse", "滑鼠"), ("keyboard", "鍵盤"),
+                     ("headset", "耳機"), ("gamepad", "控制器"), ("bluetooth", "藍牙"))
 
 GAMEPAD_WORDS = ("controller", "gamepad", "joystick", "joy-con")
 
@@ -717,17 +717,17 @@ def describe(st: DeviceStatus, name: Optional[str] = None, left: str = "") -> st
 def device_state(st: DeviceStatus, left: str = "") -> str:
     """The part of describe() after the name: "85%, charging", "no link ..."."""
     if st.approx:
-        state = st.approx          # XInput: coarse levels or "not reported yet", never a fake "NN%"
+        state = i18n.status(st.approx)  # coarse levels or "not reported yet", never a fake "NN%"
     elif st.level is None:
-        state = "no link (off or asleep)"
+        state = "未連線（已關機或休眠）"
     else:
         state = f"{st.level}%"
         if st.charging:
-            state += ", charging"
+            state += "，充電中"
         if not st.online:
-            state += " (last known value, device asleep)"
+            state += "（最後已知電量，裝置休眠中）"
         elif left and not st.charging:
-            state += f", {left}"
+            state += f"，{left}"
     return state
 
 
@@ -744,7 +744,7 @@ def ask_name(current: str) -> Optional[str]:
     script = ("[Console]::OutputEncoding = [Text.Encoding]::UTF8; "
               "Add-Type -AssemblyName Microsoft.VisualBasic; "
               "[Microsoft.VisualBasic.Interaction]::InputBox("
-              "'New name for this device:', 'Halo Battery - Rename', $env:HALO_BATTERY_NAME)")
+              "'請輸入這個裝置的新名稱：', 'Halo Battery - 重新命名', $env:HALO_BATTERY_NAME)")
     try:
         res = subprocess.run(
             ["powershell", "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass",
@@ -907,7 +907,7 @@ class App:
             if owner and owner.status:
                 return self.display_name(owner.status) or owner.status.name
             hidden = len(self._settings_map("hidden"))
-            return f"No devices shown ({hidden} hidden)" if hidden else "No devices found"
+            return f"未顯示任何裝置（已隱藏 {hidden} 個）" if hidden else "找不到裝置"
 
         def header_detail():
             if owner and owner.status:
@@ -954,16 +954,16 @@ class App:
         def toggle_autostart(icon, item):
             try:
                 if not set_autostart(not autostart_enabled()):
-                    icon.notify(TEMP_AUTOSTART_TEXT, "Start with Windows")
+                    icon.notify(TEMP_AUTOSTART_TEXT, "隨 Windows 啟動")
             except OSError as e:
                 log.warning("autostart: %s", e)
 
-        intervals = [(15, "15 s"), (30, "30 s"), (60, "1 min"), (120, "2 min"), (300, "5 min")]
-        themes = [("auto", "Automatic"), ("white", "White"), ("black", "Black")]
-        lows = [(0, "Off"), (10, "10%"), (15, "15%"), (20, "20%"), (25, "25%"), (30, "30%")]
+        intervals = [(15, "15 秒"), (30, "30 秒"), (60, "1 分鐘"), (120, "2 分鐘"), (300, "5 分鐘")]
+        themes = [("auto", "自動"), ("white", "白色"), ("black", "黑色")]
+        lows = [(0, "關閉"), (10, "10%"), (15, "15%"), (20, "20%"), (25, "25%"), (30, "30%")]
 
         def update_text(_item):
-            return f"Download v{self.update[0]}…" if self.update else "Download update…"
+            return f"下載 v{self.update[0]}…" if self.update else "下載更新…"
 
         def renamed(_item):
             return bool(owner and owner.status and owner.status.key in self._settings_map("names"))
@@ -989,7 +989,7 @@ class App:
 
         def default_low_text(_item):
             low = self.cfg["low"]
-            return f"Default ({low}%)" if low else "Default (off)"
+            return f"預設（{low}%）" if low else "預設（關閉）"
 
         def provider_on(name):
             return lambda _item: name not in self.disabled_providers()
@@ -1005,57 +1005,57 @@ class App:
             # built each time the menu opens, so it always shows the current list
             hidden = self._settings_map("hidden")
             for key, name in sorted(hidden.items(), key=lambda kv: str(kv[1]).lower()):
-                yield Item(f"Show {name}", show_again(key))
+                yield Item(f"顯示 {name}", show_again(key))
 
         # items for the device of this icon only (the "no devices" icon has none)
         device_items = [
             # the flyout has the pencil next to the name instead
-            flyout.classic_only(Item("Rename…", lambda i, it: self.rename(owner))),
-            Item("Reset name", lambda i, it: self.reset_name(owner), visible=renamed),
-            Item("Icon", Menu(*[Item(label, pick(value), checked=picked(value), radio=True)
+            flyout.classic_only(Item("重新命名…", lambda i, it: self.rename(owner))),
+            Item("重設名稱", lambda i, it: self.reset_name(owner), visible=renamed),
+            Item("圖示", Menu(*[Item(label, pick(value), checked=picked(value), radio=True)
                                 for value, label in PICTOGRAM_CHOICES])),
-            Item("Low battery alert at", Menu(
+            Item("低電量警示值", Menu(
                 Item(default_low_text, pick_device_low(None), checked=device_low_picked(None), radio=True),
                 *[Item(t, pick_device_low(p), checked=device_low_picked(p), radio=True)
                   for p, t in lows])),
-            Item("Hide this device", lambda i, it: self.hide(owner)),
+            Item("隱藏此裝置", lambda i, it: self.hide(owner)),
         ] if owner is not None else []
 
         # all settings in one submenu, so the main menu keeps only the things used often
         preferences = Menu(
             # - / + in the menu; the classic menu shows them as a list to pick from
-            flyout.CounterItem("Poll interval", intervals, lambda: self.cfg["interval"], set_interval),
-            flyout.CounterItem("Low battery alert", lows, lambda: self.cfg["low"], set_low),
-            Item("Alert when fully charged", toggle("full_alert"),
+            flyout.CounterItem("更新間隔", intervals, lambda: self.cfg["interval"], set_interval),
+            flyout.CounterItem("低電量警示", lows, lambda: self.cfg["low"], set_low),
+            Item("充飽電時通知", toggle("full_alert"),
                  checked=lambda it: self.cfg.get("full_alert", True)),
-            Item("Estimated time left", toggle("time_left"),
+            Item("顯示預估剩餘時間", toggle("time_left"),
                  checked=lambda it: self.cfg.get("time_left", True)),
-            Item("Quiet while gaming", toggle("quiet_fullscreen"),
+            Item("遊戲時勿擾", toggle("quiet_fullscreen"),
                  checked=lambda it: self.cfg.get("quiet_fullscreen", True)),
             Menu.SEPARATOR,
-            Item("Windows Bluetooth devices", toggle("bluetooth"),
+            Item("Windows 藍牙裝置", toggle("bluetooth"),
                  checked=lambda it: self.cfg["bluetooth"]),
             # off: a PS4 / PS5 controller over Bluetooth shows its level only while Steam or a
             # game has it in the full mode; on: the app switches it, which some games do not
             # survive until the controller is turned off and on (#96)
-            Item("PlayStation full mode (Bluetooth)", toggle("playstation_full_mode"),
+            Item("PlayStation 完整模式（藍牙）", toggle("playstation_full_mode"),
                  checked=lambda it: self.cfg.get("playstation_full_mode", False)),
-            Item("Device types", Menu(provider_items)),
-            Item("Device pictogram", toggle("badges"),
+            Item("裝置類型", Menu(provider_items)),
+            Item("裝置圖案", toggle("badges"),
                  checked=lambda it: self.cfg["badges"]),
-            Item("Percentage in the icon", toggle("percent_in_icon"),
+            Item("在圖示中顯示百分比", toggle("percent_in_icon"),
                  checked=lambda it: self.cfg.get("percent_in_icon", False)),
-            Item("Charging animation", toggle("animation"),
+            Item("充電動畫", toggle("animation"),
                  checked=lambda it: self.cfg["animation"]),
-            Item("Icon colour", Menu(*[
+            Item("圖示色彩", Menu(*[
                 Item(t, set_theme(m), checked=lambda it, m=m: self.cfg.get("icon_theme", "auto") == m, radio=True)
                 for m, t in themes])),
             Menu.SEPARATOR,
-            Item("Status file for other apps", toggle("status_file"),
+            Item("供其他應用程式使用的狀態檔", toggle("status_file"),
                  checked=lambda it: self.cfg.get("status_file", False)),
-            Item("Start with Windows", toggle_autostart,
+            Item("隨 Windows 啟動", toggle_autostart,
                  checked=lambda it: autostart_enabled()),
-            Item("Check for updates", toggle("update_check"),
+            Item("檢查更新", toggle("update_check"),
                  checked=lambda it: self.cfg.get("update_check", True)),
         )
 
@@ -1066,13 +1066,13 @@ class App:
                  visible=lambda it: self.update is not None),
             *device_items,
             Menu.SEPARATOR,
-            Item("Refresh now", lambda i, it: self.wake.set(), default=True),
-            Item("Preferences", preferences),
-            Item("Hidden devices", Menu(hidden_items),
+            Item("立即重新整理", lambda i, it: self.wake.set(), default=True),
+            Item("偏好設定", preferences),
+            Item("隱藏的裝置", Menu(hidden_items),
                  visible=lambda it: bool(self._settings_map("hidden"))),
             Menu.SEPARATOR,
-            Item("Diagnostics…", lambda i, it: self.request_diag()),
-            Item(f"Exit (v{VERSION})", lambda i, it: self.quit()),
+            Item("診斷資訊…", lambda i, it: self.request_diag()),
+            Item(f"結束（v{VERSION}）", lambda i, it: self.quit()),
         )
 
     # ---------------- hide / rename
@@ -1527,7 +1527,7 @@ class App:
             ready = threading.Event()
             self.placeholder = tray_icon(IDLE_KEY, f"{APP_NAME}_idle",
                                          icons.render(None, False, False, light_taskbar=self.light_taskbar),
-                                         f"{APP_TITLE}: no devices found",
+                                         f"{APP_TITLE}：找不到裝置",
                                          self.build_menu(None))
             self.placeholder._hb_flyout = getattr(self, "flyout", None)
             self.placeholder_ready = ready
@@ -1800,7 +1800,7 @@ class App:
             self.refresh_menus()
             if self.cfg.get("update_notified") != latest:
                 self.cfg["update_notified"] = latest
-                self.notify_any(update_text(latest), f"{APP_TITLE} update")
+                self.notify_any(update_text(latest), f"{APP_TITLE} 更新")
         else:
             self.update = None
         save_config(self.cfg)

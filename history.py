@@ -32,13 +32,13 @@ SAVE_EVERY = 300.0       # s between writes of history.json
 
 
 def format_left(seconds: float) -> str:
-    """12600 -> 'about 4 h of use left'."""
+    """12600 -> '約可再使用 4 小時'."""
     hours = seconds / 3600.0
     if hours < 1:
-        return "less than 1 h of use left"
+        return "可使用時間不到 1 小時"
     if hours < 48:
-        return f"about {round(hours)} h of use left"
-    return f"about {round(hours / 24)} days of use left"
+        return f"約可再使用 {round(hours)} 小時"
+    return f"約可再使用 {round(hours / 24)} 天"
 
 
 class History:
