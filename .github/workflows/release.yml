@@ -35,7 +35,7 @@ jobs:
         if: github.ref_type == 'tag'
         shell: pwsh
         run: |
-          $tag = "${{ github.ref_name }}".TrimStart("v")
+          $tag = "${{ github.ref_name }}".TrimStart("v").Replace("-zh-TW", "")
           $m = Select-String -Path halo_battery.pyw -Pattern '^VERSION = "(.+)"'
           $ver = $m.Matches[0].Groups[1].Value
           if ($ver -ne $tag) {
@@ -63,7 +63,8 @@ jobs:
         run: |
           $m = Select-String -Path halo_battery.pyw -Pattern '^VERSION = "(.+)"'
           $ver = $m.Matches[0].Groups[1].Value
-          $zip = "HaloBattery-$ver.zip"
+          $suffix = if ("${{ github.ref_name }}" -like "*-zh-TW") { "-zh-TW" } else { "" }
+          $zip = "HaloBattery-$ver$suffix.zip"
           Compress-Archive -Path dist/HaloBattery -DestinationPath $zip
           "zip=$zip" >> $env:GITHUB_OUTPUT
           Write-Host "Built $zip"
@@ -75,14 +76,32 @@ jobs:
           path: dist/HaloBattery
 
       - name: Release notes from CHANGELOG.md
-        if: github.ref_type == 'tag'
+        if: github.ref_type == 'tag' && !endsWith(github.ref_name, '-zh-TW')
         # fails if CHANGELOG.md has no section for this version
         run: python tools/release_notes.py ${{ github.ref_name }} --out release_notes.md
+
+      - name: Traditional Chinese release notes
+        if: github.ref_type == 'tag' && endsWith(github.ref_name, '-zh-TW')
+        shell: pwsh
+        run: |
+          @'
+          ## Halo Battery 1.13.0 繁體中文版
+
+          以 Halo Battery 1.13.0 為基礎的繁體中文（台灣用語）版本。
+
+          - 托盤選單與偏好設定繁體中文化
+          - 通知、裝置狀態與預估剩餘時間繁體中文化
+          - 裝置重新命名視窗繁體中文化
+          - 新增繁體中文安裝與使用說明
+
+          下載 ZIP、完整解壓縮後執行 `HaloBattery.exe`。Windows SmartScreen 可能因程式未簽署而顯示警告。
+          '@ | Set-Content -Encoding utf8 release_notes.md
 
       - name: Attach to release
         if: github.ref_type == 'tag'
         uses: softprops/action-gh-release@v3
         with:
+          name: ${{ endsWith(github.ref_name, '-zh-TW') && 'Halo Battery 1.13.0 繁體中文版' || github.ref_name }}
           files: ${{ steps.zip.outputs.zip }}
           fail_on_unmatched_files: true
           body_path: release_notes.md
