@@ -44,7 +44,7 @@
 | [MCHOSE G7](docs/protocols.md#mchose-g7) | USB（晶片「YJX-CHIP」） | 是 |
 | [MCHOSE M7 Ultra](docs/protocols.md#mchose-m7-ultra) | 2.4 GHz 接收器 | 是 |
 | [Nintendo Switch Pro Controller、Joy-Con（L）／（R）](docs/protocols.md#nintendo-switch-pro-controller-joy-con-l--r) | 藍牙 | 否 |
-| [Pulsar X2 V2 Mini、ATK VXE R1 SE+、VXE R1 Pro Max](docs/protocols.md#pulsar-x2-v2-mini-atk-vxe-r1-se-vxe-r1-pro-max) | 2.4 GHz 轉接器與 USB 傳輸線 | 是 |
+| [Pulsar X2 V2 Mini／X2 V3 Mini、ATK VXE R1 SE+、VXE R1 Pro Max](docs/protocols.md#pulsar-x2-v2-mini-x2-v3-mini-atk-vxe-r1-se-vxe-r1-pro-max) | 2.4 GHz／8K 轉接器與 USB 傳輸線 | 是 |
 | [Razer Barracuda Pro（2.4 GHz）](docs/protocols.md#razer-barracuda-pro-24-ghz) | 2.4 GHz 轉接器 | 是 |
 | [Razer Basilisk V3 Pro、Razer Basilisk Ultimate（經使用者測試）](docs/protocols.md#razer-basilisk-v3-pro-razer-basilisk-ultimate) | 2.4 GHz 接收器 | 是 |
 | [Razer BlackShark V2 Pro（2023）](docs/protocols.md#razer-blackshark-v2-pro-2023) | 2.4 GHz 接收器 | 是 |
