@@ -29,17 +29,20 @@
 | [Corsair Dark Core RGB Pro SE](docs/protocols.md#corsair-dark-core-rgb-pro-se) | 2.4 GHz 轉接器 | 否 |
 | [Corsair Void v2 Wireless、Virtuoso Max Wireless、HS80 Max Wireless](docs/protocols.md#corsair-void-v2-wireless-virtuoso-max-wireless-hs80-max-wireless) | 無線接收器 | 否 |
 | [GameSir G7 Pro；FlyDigi Vader Pro（經使用者測試）](docs/protocols.md#gamesir-g7-pro-flydigi-vader-pro) | 2.4 GHz 接收器（顯示為 Xbox 控制器） | 是 |
+| [G-Wolves HSK Pro ACE 與其他使用獨立接收器的型號](docs/protocols.md#g-wolves-hsk-pro-ace-and-the-other-models-with-a-receiver-of-their-own) | 2.4 GHz 接收器 | 否 |
 | [G-Wolves WARG、HTS Plus（Pro）、HTXU、Lycan、Fenrir Pro／Asym、HTX Mini](docs/protocols.md#g-wolves-warg-hts-plus-pro-htxu-lycan-fenrir-pro--asym-htx-mini) | 8K 接收器或 USB 傳輸線 | 否 |
 | [Hitscan Hyperlight](docs/protocols.md#hitscan-hyperlight) | 2.4 GHz 接收器或 USB 傳輸線 | 否 |
 | [HyperX Cloud Alpha 2](docs/protocols.md#hyperx-cloud-alpha-2) | 2.4 GHz 基地台 | 是 |
 | [HyperX Cloud II Wireless](docs/protocols.md#hyperx-cloud-ii-wireless) | 2.4 GHz 轉接器 | 否 |
 | [HyperX Cloud III Wireless](docs/protocols.md#hyperx-cloud-iii-wireless) | 2.4 GHz 轉接器 | 否 |
+| [HyperX Cloud III S Wireless](docs/protocols.md#hyperx-cloud-iii-s-wireless) | 2.4 GHz 轉接器 | 是 |
 | [JBL Quantum 910 Wireless](docs/protocols.md#jbl-quantum-910-wireless) | 2.4 GHz 轉接器 | 是 |
 | [Keychron Ultra-Link 8K、Keychron M5](docs/protocols.md#keychron-ultra-link-8k-keychron-m5) | 2.4 GHz 接收器與 USB 傳輸線 | 否 |
 | [LAMZU Maya X](docs/protocols.md#lamzu-maya-x) | 8K 轉接器或 USB 傳輸線 | 是 |
 | [Lofree Hyzen](docs/protocols.md#lofree-hyzen) | 2.4 GHz 轉接器 | 否 |
 | [Logitech G502 LIGHTSPEED、G502 X PLUS](docs/protocols.md#logitech-g502-lightspeed-g502-x-plus) | Lightspeed 接收器 | 是 |
 | [Logitech（更多 HID++ 2.0 裝置與 G 系列耳機）](docs/protocols.md#logitech-more-hid-20-devices-and-g-series-headsets) | Lightspeed、Unifying 或 Bolt 接收器 | 很可能 |
+| [Logitech G PRO X 2 LIGHTSPEED](docs/protocols.md#logitech-g-pro-x-2-lightspeed) | LIGHTSPEED 接收器 | 是 |
 | [MCHOSE A7 V2 Ultra](docs/protocols.md#mchose-a7-v2-ultra) | 2.4 GHz 接收器 | 否 |
 | [MCHOSE G7](docs/protocols.md#mchose-g7) | USB（晶片「YJX-CHIP」） | 是 |
 | [MCHOSE M7 Ultra](docs/protocols.md#mchose-m7-ultra) | 2.4 GHz 接收器 | 是 |
@@ -50,12 +53,14 @@
 | [Razer BlackShark V2 Pro（2023）](docs/protocols.md#razer-blackshark-v2-pro-2023) | 2.4 GHz 接收器 | 是 |
 | [Razer BlackWidow V3 Pro](docs/protocols.md#razer-blackwidow-v3-pro) | 2.4 GHz 接收器或 USB 傳輸線 | 否 |
 | [Razer DeathAdder V4 Pro](docs/protocols.md#razer-deathadder-v4-pro) | 2.4 GHz 接收器 | 是 |
+| [Razer DeathStalker V2 Pro／TKL 與 BlackWidow HyperSpeed 鍵盤](docs/protocols.md#razer-deathstalker-v2-pro-tkl) | HyperSpeed 接收器或 USB 傳輸線 | 部分型號是 |
 | [Razer 無線滑鼠（其他 OpenRazer 型號）](docs/protocols.md#razer-wireless-mice-other-openrazer-models) | 2.4 GHz 接收器或 USB 傳輸線 | 很可能 |
 | [Sony DualSense（PS5）](docs/protocols.md#sony-dualsense-ps5) | USB 或藍牙 | 是 |
 | [Sony DualShock 4（PS4）](docs/protocols.md#sony-dualshock-4-ps4) | USB 傳輸線與藍牙 | 是 |
 | [SteelSeries Aerox 3 Wireless](docs/protocols.md#steelseries-aerox-3-wireless) | 2.4 GHz 轉接器 | 否 |
 | [SteelSeries Arctis 與 GameBuds（其他型號）](docs/protocols.md#steelseries-arctis-and-gamebuds-other-models) | 無線基地台或轉接器 | 很可能 |
 | [SteelSeries Arctis Nova 7](docs/protocols.md#steelseries-arctis-nova-7) | 2.4 GHz 轉接器 | 是 |
+| [SteelSeries Arctis Nova Elite](docs/protocols.md#steelseries-arctis-nova-elite) | 基地台 | 是 |
 | [SteelSeries Arctis Nova Pro Wireless（`1038:12E0`、`1038:12E5` X）](docs/protocols.md#steelseries-arctis-nova-pro-wireless-103812e0-103812e5-x) | 無線基地台，介面 3 或 4 | 否 |
 | [SteelSeries Rival 3 Wireless](docs/protocols.md#steelseries-rival-3-wireless) | 2.4 GHz 轉接器 | 否 |
 | [WLmouse Beast X 與 Beast X Mini Pro](docs/protocols.md#wlmouse-beast-x-and-beast-x-mini-pro) | 8K 或 1K 接收器，或 USB 傳輸線 | 很可能 |
@@ -88,6 +93,10 @@
 2. 將此儲存庫下載或複製至固定位置，例如 `C:\Tools\HaloBattery`。
 3. 執行 `install_and_run.bat`，再從系統匣開啟**隨 Windows 啟動**。
 
+### 可攜模式
+
+若要將設定、記錄、電量歷史、狀態檔與診斷報告保存在程式資料夾內，請在 `HaloBattery.exe` 旁建立空白的 `portable.txt`，然後重新啟動程式。資料夾必須可寫入；若無法寫入，程式會自動改用 `%APPDATA%\HaloBattery`。設定不會自動搬移，如需保留原設定，請自行複製 `config.json`。
+
 `build_exe.bat` 可自行建置至 `dist\HaloBattery`。推送如 `v1.8.0` 的標籤後，GitHub Actions 會自動建置並將 ZIP 附加至 Release（`.github/workflows/release.yml`）。
 
 ## 圖示
@@ -114,6 +123,7 @@
   - **充飽電時通知**（每次充電一次，預設開啟）
   - **顯示預估剩餘時間**：依上次充電後的耗電速度估算。只有裝置喚醒且使用電池時才計時；使用滿 30 分鐘且下降 3% 後才估算。歷史位於 `%APPDATA%\HaloBattery\history.json`。
   - **遊戲時勿擾**（預設開啟）：全螢幕時暫緩通知並改為每 5 分鐘輪詢；離開全螢幕後顯示仍有效的通知。接上裝置仍會立即更新。
+  - **低電量警示音效**（預設關閉）：低電量通知時播放 Windows 內建音效；裝置保持低電量且未充電時，每 5 分鐘再次播放。
   - **Windows 藍牙裝置**、**裝置圖案**、**在圖示中顯示百分比**、**充電動畫**
   - **PlayStation 完整模式（藍牙）**（預設關閉）：一律讀取 PS4／PS5 藍牙控制器電量；部分遊戲在此模式下會停止偵測控制器，直到重新開關控制器
   - **供其他應用程式使用的狀態檔**（預設關閉）：每次輪詢寫入 `%APPDATA%\HaloBattery\status.json`。裝置包含 `name`、`level`、`charging`、`online`、`kind`、`seconds_left` 與 `text`；程式結束時 `running` 變為 false，`updated_unix` 表示更新時間。關閉會刪除檔案。
